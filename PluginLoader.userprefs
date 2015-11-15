@@ -2,13 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader/Loader/PluginCollection.cs">
     <Files>
-      <File FileName="PluginLoader/Loader/IPluginArray.cs" Line="18" Column="35" />
-      <File FileName="PluginLoader/Loader/ExtraInfo.cs" Line="63" Column="21" />
+      <File FileName="PluginLoader/Loader/IPluginArray.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader/Loader/ExtraInfo.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Loader/PluginInfo.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Loader/PluginLoader.cs" Line="1" Column="1" />
-      <File FileName="PluginLoader/Loader/PluginCollection.cs" Line="21" Column="4" />
+      <File FileName="PluginLoader/Loader/PluginCollection.cs" Line="16" Column="4" />
       <File FileName="PluginLoader/Plugins/IPlugin.cs" Line="1" Column="1" />
-      <File FileName="PluginLoader/PluginAttribute/PluginInfoAttribute.cs" Line="42" Column="7" />
+      <File FileName="PluginLoader/PluginAttribute/PluginInfoAttribute.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
