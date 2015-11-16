@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using PluginLoader.Plugins;
 
@@ -8,7 +9,7 @@ namespace PluginLoader.Loader
 {
 	[DebuggerDisplay("PluginCount={PluginCount}")]
 	internal sealed class PluginCollection<T> :IPluginArray<T>,ICollection<PluginInfo>
-		where T:IPlugin, new()
+		where T:class,IPlugin,new()
 	{
 		private List<PluginInfo> m_lstPlugin;
 
@@ -19,24 +20,35 @@ namespace PluginLoader.Loader
 		#region IPluginArray implementation
 		public string[] GetPluginsName ()
 		{
-			throw new NotImplementedException ();
+			List<string> lst = new List<string> ();
+			foreach (var i in this.m_lstPlugin) {
+				lst.Add (i.PluginFullName);
+			}
+			return lst.ToArray ();
 		}
 
 		public T this [int Index] {
 			get {
-				throw new NotImplementedException ();
+				return this.m_lstPlugin [Index].PluginAssembly.CreateInstance (this.m_lstPlugin [Index].PluginFullName) as T;
 			}
 		}
 
-		public T this [string Hash] {
+		public T this [string GUID] {
 			get {
-				throw new NotImplementedException ();
+				var obj = from t in this.m_lstPlugin where t.PluginGUID == GUID select t;
+				if(obj.Count() == 0)
+					return null;
+				else
+				{
+					PluginInfo plg = obj.First();
+					return plg.PluginAssembly.CreateInstance(plg.PluginFullName) as T;
+				}
 			}
 		}
 
 		public int PluginCount {
 			get {
-				throw new NotImplementedException ();
+				return this.m_lstPlugin.Count;
 			}
 		}
 		#endregion
@@ -44,7 +56,7 @@ namespace PluginLoader.Loader
 		IEnumerator<T> IEnumerable<T>.GetEnumerator ()
 		{
 			foreach (var i in m_lstPlugin) {
-				yield return i.PluginAssembly.CreateInstance (i.PluginFullName);
+				yield return i.PluginAssembly.CreateInstance (i.PluginFullName) as T ;
 			}
 		}
 		#endregion
