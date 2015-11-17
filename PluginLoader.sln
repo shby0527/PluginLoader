@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginLoader", "PluginLoader\PluginLoader.csproj", "{2B150209-AC4C-493B-BAD5-5B999F590E79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIDGetter", "GUIDGetter\GUIDGetter.csproj", "{783354A0-7602-4B69-88F8-F8D93B4A09CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = PluginLoader\PluginLoader.csproj
