@@ -25,6 +25,19 @@ namespace PluginLoader.Loader
 		private static StreamWriter sw;
 
 		/// <summary>
+		/// Load the specified assembly.
+		/// load from assmbly's full path
+		/// </summary>
+		/// <param name="assembly">Assembly.</param>
+		public static IPluginArray<T> Load (Assembly assembly)
+		{
+			string path = assembly.Location;
+			if (path == "")
+				return Load (".");
+			DirectoryInfo info = Directory.GetParent (path);
+			return Load (info.FullName);
+		}
+		/// <summary>
 		/// Load the specified Path.
 		/// </summary>
 		/// <param name="Path">Path. the Path is Full Path or reletivite Path</param>
@@ -40,6 +53,7 @@ namespace PluginLoader.Loader
 			//the we should get the full path
 			string plugin_full_path = dir.FullName;
 			StartLoad (plugin_full_path);
+			m_PluginArray.Sort ();
 			return m_PluginArray;
 		}
 
@@ -56,12 +70,17 @@ namespace PluginLoader.Loader
 				//Now we try to load the file 
 				try {
 					Assembly assmbly = Assembly.LoadFrom (file_full_path);
-					sw.WriteLine (string.Format ("we loaded {0}", assmbly.GetName ().Name));
+					sw.WriteLine (string.Format ("{0}:we loaded {1}"
+					                             , DateTime.UtcNow.ToString ()
+					                             , assmbly.GetName ().Name));
 					foreach (Module mod in assmbly.GetModules(false)) {
 						TypeCheck (mod);
 					}
 				} catch (Exception e) {
-					sw.WriteLine (string.Format ("we get an exception {0} in {1}", e.Message, e.StackTrace));
+					sw.WriteLine (string.Format ("{0}:we get an exception {1} in {2}"
+					                             , DateTime.UtcNow.ToString ()
+					                             , e.Message
+					                             , e.StackTrace));
 				}
 			}
 			sw.Close ();
@@ -91,13 +110,16 @@ namespace PluginLoader.Loader
 				PluginInfoAttribute attr = CheckHasAttribute (type);
 				if (attr == null) {
 					sw.WriteLine (
-						string.Format ("we didn't found the attribute or the attribute GUID not checked in the plugin class {0}"
-					    , type.Name));
+						string.Format ("{0}:we didn't found the attribute or the attribute GUID not checked in the plugin class {1}"
+					               , DateTime.UtcNow.ToString ()
+					               , type.Name));
 					continue;
 				}
 				//OK the class who implement the interface and it has attribute
 				if (CheckSame (attr.GUID)) {
-					sw.WriteLine (string.Format ("the plugin{0} we found the same in collection", type.Name));
+					sw.WriteLine (string.Format ("{0}:the plugin {1} we found the same in collection"
+					                             , DateTime.UtcNow.ToString ()
+					                             , type.Name));
 					continue;
 				}
 				PluginInfo pli = new PluginInfo ();
@@ -106,7 +128,9 @@ namespace PluginLoader.Loader
 				pli.PluginGUID = attr.GUID;
 				pli.PluginPriority = attr.Priority;
 				m_PluginArray.Add (pli);
-				sw.WriteLine (string.Format ("the plugin{0} was loaded", type.Name));
+				sw.WriteLine (string.Format ("{0}:the plugin {1} was loaded"
+				                             , DateTime.UtcNow.ToString ()
+				                             , type.Name));
 			}
 		}
 
@@ -150,12 +174,13 @@ namespace PluginLoader.Loader
 			}
 			return null;
 		}
+
 		/// <summary>
 		/// Checks the same.
 		/// </summary>
 		/// <returns><c>true</c>, if same ,return true <c>false</c> otherwise.</returns>
 		/// <param name="GUID">GUI.</param>
-		private static bool CheckSame(string GUID)
+		private static bool CheckSame (string GUID)
 		{
 			bool flag = false;
 			foreach (PluginInfo w in m_PluginArray) {
@@ -173,7 +198,7 @@ namespace PluginLoader.Loader
 		/// </summary>
 		/// <returns><c>true</c>, if extends was checked, <c>false</c> otherwise.</returns>
 		/// <param name="type">Type.</param>
-		private static bool CheckExtends(Type type)
+		private static bool CheckExtends (Type type)
 		{
 			Type base_type = typeof(T);
 			bool flag = false;

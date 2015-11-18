@@ -9,6 +9,8 @@ namespace Test
 		public static void Main (string[] args)
 		{
 			IPluginArray<TestPluginFather> arr =  PluginLoader<TestPluginFather>.Load ("./plugins");
+			if (arr.PluginCount == 0) 
+				return;
 			TestPluginFather w = arr [0];
 			Console.WriteLine (arr.PluginCount);
 		}

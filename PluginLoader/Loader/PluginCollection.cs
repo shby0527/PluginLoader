@@ -194,6 +194,14 @@ namespace PluginLoader.Loader
 			return this.m_lstPlugin.GetEnumerator ();
 		}
 		#endregion
+
+		/// <summary>
+		/// Sort with Plugin Priority.
+		/// </summary>
+		public void Sort()
+		{
+			this.m_lstPlugin.Sort ();
+		}
 	}
 }
 
