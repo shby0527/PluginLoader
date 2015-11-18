@@ -11,7 +11,8 @@ namespace Test
 			IPluginArray<TestPluginFather> arr =  PluginLoader<TestPluginFather>.Load ("./plugins");
 			if (arr.PluginCount == 0) 
 				return;
-			TestPluginFather w = arr [0];
+			foreach (TestPluginFather i in arr)
+				;
 			Console.WriteLine (arr.PluginCount);
 		}
 	}
