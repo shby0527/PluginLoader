@@ -21,6 +21,8 @@ public partial class MainWindow: Gtk.Window
 	{
 		using (SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider ()) {
 			string input = entry1.Text;
+			//we should add the time to compute the hash value
+			input += DateTime.UtcNow.ToString ();
 			byte[] indata = Encoding.UTF8.GetBytes (input);
 			byte[] outdata = sha256.ComputeHash (indata);
 			this.entry1.Text = BitConverter.ToString (outdata).Replace ("-", "");

@@ -9,7 +9,7 @@ namespace PluginLoader.Loader
 {
 	[DebuggerDisplay("PluginCount={PluginCount}")]
 	internal sealed class PluginCollection<T> :IPluginArray<T>,ICollection<PluginInfo>
-		where T:class,IPlugin,new()
+		where T:class,IPlugin
 	{
 		//list to save the plugin information
 		private List<PluginInfo> m_lstPlugin;
@@ -38,7 +38,12 @@ namespace PluginLoader.Loader
 		public T this [int Index] {
 			get {
 				PluginInfo plg = this.m_lstPlugin [Index];
-				return plg.PluginAssembly.CreateInstance (plg.PluginFullName) as T;
+				T tmp = plg.PluginAssembly.CreateInstance (plg.PluginFullName) as T;
+				if (tmp != null) {
+					if (tmp.Loading ())
+						return tmp;
+				}
+				return null;
 			}
 		}
 		/// <summary>
@@ -54,7 +59,12 @@ namespace PluginLoader.Loader
 				else
 				{
 					PluginInfo plg = obj.First();
-					return plg.PluginAssembly.CreateInstance(plg.PluginFullName) as T;
+					T tmp = plg.PluginAssembly.CreateInstance(plg.PluginFullName) as T;
+					if (tmp != null) {
+						if (tmp.Loading ())
+							return tmp;
+					}
+					return null;
 				}
 			}
 		}
@@ -78,7 +88,12 @@ namespace PluginLoader.Loader
 		IEnumerator<T> IEnumerable<T>.GetEnumerator ()
 		{
 			foreach (var i in m_lstPlugin) {
-				yield return i.PluginAssembly.CreateInstance (i.PluginFullName) as T ;
+				T tmp = i.PluginAssembly.CreateInstance (i.PluginFullName) as T ;
+				if (tmp != null) {
+					if (tmp.Loading ())
+						yield return tmp;
+				}
+				yield return null;
 			}
 		}
 		#endregion
@@ -91,7 +106,12 @@ namespace PluginLoader.Loader
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
 		{
 			foreach (var i in m_lstPlugin) {
-				yield return i.PluginAssembly.CreateInstance (i.PluginFullName);
+				T tmp = i.PluginAssembly.CreateInstance (i.PluginFullName) as T;
+				if (tmp != null) {
+					if (tmp.Loading ())
+						yield return tmp;
+				}
+				yield return tmp;
 			}
 		}
 		#endregion
@@ -159,7 +179,7 @@ namespace PluginLoader.Loader
 		/// <value><c>true</c> if this instance is read only; otherwise, <c>false</c>.</value>
 		public bool IsReadOnly {
 			get {
-				return true;
+				return false;
 			}
 		}
 		#endregion

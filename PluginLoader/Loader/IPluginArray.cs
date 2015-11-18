@@ -6,7 +6,7 @@ using PluginLoader.Plugins;
 namespace PluginLoader.Loader
 {
 	public interface IPluginArray<out T>:IEnumerable<T>
-		where T:IPlugin,new()
+		where T:class,IPlugin
 	{
 		#region this is get data to get plugin instance
 		T this[int Index]{get;}

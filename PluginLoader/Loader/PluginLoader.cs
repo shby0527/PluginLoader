@@ -1,10 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Reflection;
-using PluginLoader.Plugins;
+using System.Text;
+using System.Text.RegularExpressions;
 using PluginLoader.PluginAttribute;
+using PluginLoader.Plugins;
 
 /// <summary>
 /// Plugin loader.
@@ -15,7 +16,7 @@ namespace PluginLoader.Loader
 	/// Plugin loader.
 	/// </summary>
 	public static class PluginLoader<T> 
-		where T:class, IPlugin, new()
+		where T:class, IPlugin
 	{
 		/// <summary>
 		/// The m_ plugin array.
@@ -78,16 +79,20 @@ namespace PluginLoader.Loader
 		/// add it to collection,<br />
 		/// write to log file ,load fail<br />
 		/// </summary>
-		/// <param name="ModuleArr">Module arr.</param>
+		/// <param name="ModuleArr">Module arr.</param>.
 		private static void TypeCheck (Module Mod)
 		{
 			//start to find class
 			foreach (Type type in Mod.GetTypes()) {
 				if (!CheckImplement (type))
 					continue;
+				if (!CheckExtends (type)) //if it not extends type T, we should igonre it
+					continue;
 				PluginInfoAttribute attr = CheckHasAttribute (type);
 				if (attr == null) {
-					sw.WriteLine (string.Format ("we didn't found the attribute in the plugin class {0}", type.Name));
+					sw.WriteLine (
+						string.Format ("we didn't found the attribute or the attribute GUID not checked in the plugin class {0}"
+					    , type.Name));
 					continue;
 				}
 				//OK the class who implement the interface and it has attribute
@@ -135,7 +140,12 @@ namespace PluginLoader.Loader
 			foreach (object i in all_Attribute) {
 				PluginInfoAttribute attr = i as PluginInfoAttribute;
 				if (attr != null) {
-					return attr;
+					//now we check the GUID 
+					Regex reg = new Regex ("^[a-fA-F0-9]{64}$");
+					if (reg.IsMatch (attr.GUID))
+						return attr;
+					else
+						return null;
 				}
 			}
 			return null;
@@ -153,6 +163,29 @@ namespace PluginLoader.Loader
 					flag = true;
 					break;
 				}
+			}
+			return flag;
+		}
+
+		/// <summary>
+		/// Checks the extends.
+		/// who is entends type T
+		/// </summary>
+		/// <returns><c>true</c>, if extends was checked, <c>false</c> otherwise.</returns>
+		/// <param name="type">Type.</param>
+		private static bool CheckExtends(Type type)
+		{
+			Type base_type = typeof(T);
+			bool flag = false;
+			Type tmp = type;
+			//if the type is a interface ,it's base type is null
+			//base type is null, mean the super class
+			while (tmp.BaseType != null) {
+				if (tmp.BaseType == base_type && !tmp.IsAbstract) {
+					flag = true;
+					break;
+				}
+				tmp = tmp.BaseType;
 			}
 			return flag;
 		}

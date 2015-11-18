@@ -5,12 +5,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginLoader", "PluginLoade
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIDGetter", "GUIDGetter\GUIDGetter.csproj", "{783354A0-7602-4B69-88F8-F8D93B4A09CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test\Test.csproj", "{EABB489A-322B-48DF-8F16-979B47E4F6B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "Test\TestPlugin\TestPlugin.csproj", "{098C05AB-2268-417F-B369-5259F8DFF207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{098C05AB-2268-417F-B369-5259F8DFF207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098C05AB-2268-417F-B369-5259F8DFF207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098C05AB-2268-417F-B369-5259F8DFF207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098C05AB-2268-417F-B369-5259F8DFF207}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B150209-AC4C-493B-BAD5-5B999F590E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -19,6 +27,10 @@ Global
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = PluginLoader\PluginLoader.csproj
