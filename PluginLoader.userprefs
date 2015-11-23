@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader/Loader/IPluginArray.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader/Loader/PluginLoader.cs">
     <Files>
       <File FileName="PluginLoader/Loader/IPluginArray.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Loader/ExtraInfo.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Loader/PluginInfo.cs" Line="1" Column="1" />
-      <File FileName="PluginLoader/Loader/PluginLoader.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader/Loader/PluginLoader.cs" Line="68" Column="39" />
       <File FileName="PluginLoader/Loader/PluginCollection.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Plugins/IPlugin.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/PluginAttribute/PluginInfoAttribute.cs" Line="1" Column="1" />
@@ -18,7 +18,6 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginLoader.cs" line="67" column="4" />
       <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginLoader.cs" line="163" column="4" />
       <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginInfo.cs" line="53" column="4" />
       <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginInfo.cs" line="38" column="4" />
