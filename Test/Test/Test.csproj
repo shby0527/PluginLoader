@@ -41,5 +41,9 @@
       <Project>{2B150209-AC4C-493B-BAD5-5B999F590E79}</Project>
       <Name>PluginLoader</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\PluginInterface\PluginInterface.csproj">
+      <Project>{9A5E3893-38DE-4ECC-A93D-764190BDD099}</Project>
+      <Name>PluginInterface</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

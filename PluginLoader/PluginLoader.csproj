@@ -36,22 +36,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PluginAttribute\PluginInfoAttribute.cs" />
-    <Compile Include="PluginAttribute\PluginExtraInfoAttribute.cs" />
-    <Compile Include="PluginAttribute\DingerInfoAttribute.cs" />
-    <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Loader\PluginLoader.cs" />
     <Compile Include="Loader\PluginInfo.cs" />
     <Compile Include="Loader\PluginCollection.cs" />
     <Compile Include="Loader\IPluginArray.cs" />
     <Compile Include="Loader\ExtraInfo.cs" />
-    <Compile Include="PluginAttribute\PluginException\AttributeNotFoundException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="PluginAttribute\" />
-    <Folder Include="Plugins\" />
     <Folder Include="Loader\" />
-    <Folder Include="PluginAttribute\PluginException\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginInterface\PluginInterface.csproj">
+      <Project>{9A5E3893-38DE-4ECC-A93D-764190BDD099}</Project>
+      <Name>PluginInterface</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

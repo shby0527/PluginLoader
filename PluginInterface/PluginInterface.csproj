@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{098C05AB-2268-417F-B369-5259F8DFF207}</ProjectGuid>
+    <ProjectGuid>{9A5E3893-38DE-4ECC-A93D-764190BDD099}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TestPlugin</RootNamespace>
-    <AssemblyName>TestPlugin</AssemblyName>
+    <RootNamespace>PluginInterface</RootNamespace>
+    <AssemblyName>PluginInterface</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,18 +32,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="PluginAttribute\DingerInfoAttribute.cs" />
+    <Compile Include="PluginAttribute\PluginException\AttributeNotFoundException.cs" />
+    <Compile Include="PluginAttribute\PluginExtraInfoAttribute.cs" />
+    <Compile Include="PluginAttribute\PluginInfoAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\Test\Test.csproj">
-      <Project>{EABB489A-322B-48DF-8F16-979B47E4F6B0}</Project>
-      <Name>Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PluginInterface\PluginInterface.csproj">
-      <Project>{9A5E3893-38DE-4ECC-A93D-764190BDD099}</Project>
-      <Name>PluginInterface</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

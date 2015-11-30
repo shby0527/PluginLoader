@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test\Test.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "Test\TestPlugin\TestPlugin.csproj", "{098C05AB-2268-417F-B369-5259F8DFF207}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "PluginInterface\PluginInterface.csproj", "{9A5E3893-38DE-4ECC-A93D-764190BDD099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{783354A0-7602-4B69-88F8-F8D93B4A09CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A5E3893-38DE-4ECC-A93D-764190BDD099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A5E3893-38DE-4ECC-A93D-764190BDD099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A5E3893-38DE-4ECC-A93D-764190BDD099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A5E3893-38DE-4ECC-A93D-764190BDD099}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EABB489A-322B-48DF-8F16-979B47E4F6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
