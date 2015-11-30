@@ -38,6 +38,7 @@
     <Compile Include="PluginAttribute\PluginException\AttributeNotFoundException.cs" />
     <Compile Include="PluginAttribute\PluginExtraInfoAttribute.cs" />
     <Compile Include="PluginAttribute\PluginInfoAttribute.cs" />
+    <Compile Include="Plugins\ExtraInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

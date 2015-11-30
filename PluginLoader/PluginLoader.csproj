@@ -40,7 +40,6 @@
     <Compile Include="Loader\PluginInfo.cs" />
     <Compile Include="Loader\PluginCollection.cs" />
     <Compile Include="Loader\IPluginArray.cs" />
-    <Compile Include="Loader\ExtraInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
