@@ -1,12 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader/Configure/ConfigureManager.cs">
+    <Files>
+      <File FileName="PluginLoader/Loader/PluginInfo.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader/Loader/PluginLoader.cs" Line="207" Column="11" />
+      <File FileName="PluginLoader/Loader/PluginCollection.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader/Loader/IPluginArray.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader/Configure/ConfigureManager.cs" Line="43" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginLoader.cs" line="163" column="4" />
-      <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginInfo.cs" line="53" column="4" />
-      <Breakpoint file="/home/umi/monopro/PluginLoader/PluginLoader/Loader/PluginInfo.cs" line="38" column="4" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

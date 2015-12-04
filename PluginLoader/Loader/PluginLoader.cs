@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using PluginLoader.PluginAttribute;
 using PluginLoader.Plugins;
-
+using PluginLoader.Configure;
 /// <summary>
 /// Plugin loader.
 /// </summary>
@@ -37,6 +37,7 @@ namespace PluginLoader.Loader
 			DirectoryInfo info = Directory.GetParent (path);
 			return Load (info.FullName);
 		}
+
 		/// <summary>
 		/// Load the specified Path.
 		/// </summary>
@@ -66,6 +67,7 @@ namespace PluginLoader.Loader
 		{
 			string[] AllFile = Directory.GetFiles (FullPath, "*.dll", SearchOption.TopDirectoryOnly);
 			sw = File.AppendText (FullPath + "/logfile.log");
+			sw.AutoFlush = true;
 			foreach (string file_full_path in AllFile) {
 				//Now we try to load the file 
 				try {
@@ -84,6 +86,7 @@ namespace PluginLoader.Loader
 				}
 			}
 			sw.Close ();
+			sw.Dispose ();
 		}
 
 		/// <summary>
@@ -97,6 +100,14 @@ namespace PluginLoader.Loader
 		/// if not found,we shoud not <br />
 		/// add it to collection,<br />
 		/// write to log file ,load fail<br />
+		/// the Plugin Priority is Load from
+		/// configure file.
+		/// the file is from the Plugins Assembly's
+		/// localtion directory/plugin Hash/plugin name.conf,
+		/// you can write you own config in this file.
+		/// if this file not exists ,we will create it
+		/// and the default priority is the author define in
+		/// his plugin's information attribute
 		/// </summary>
 		/// <param name="ModuleArr">Module arr.</param>.
 		private static void TypeCheck (Module Mod)
@@ -122,16 +133,51 @@ namespace PluginLoader.Loader
 					                             , type.Name));
 					continue;
 				}
+				int priority = ConfCheck (type, attr);
 				PluginInfo pli = new PluginInfo ();
 				pli.PluginAssembly = type.Assembly;
 				pli.PluginFullName = type.FullName;
 				pli.PluginGUID = attr.GUID;
-				pli.PluginPriority = attr.Priority;
+				pli.PluginPriority = priority;
 				m_PluginArray.Add (pli);
 				sw.WriteLine (string.Format ("{0}:the plugin {1} was loaded"
 				                             , DateTime.UtcNow.ToString ()
 				                             , type.Name));
 			}
+		}
+
+		/// <summary>
+		/// Configure file read and check it Priority config
+		/// </summary>
+		/// <returns>The check.</returns>
+		/// <param name="plugin">Plugin.</param>
+		private static int ConfCheck (Type plugin, PluginInfoAttribute attr)
+		{
+			string path = plugin.Assembly.Location;
+			DirectoryInfo dir = null;
+			if (path == "") {
+				//if the assembly is load from memory
+				//we load config file from the 
+				//work directory
+				dir = new DirectoryInfo (".");
+			} else {
+				path = Directory.GetParent (path).FullName;
+				dir = new DirectoryInfo (path + "/" + attr.GUID);
+			}
+			if (!dir.Exists)
+				dir.Create ();
+			string config_file = dir.FullName + "/" + attr.Name + ".conf";
+			FileInfo file = new FileInfo (config_file);
+			if (!file.Exists) {
+				file.Create ();
+				using (StreamWriter swf = file.AppendText ()) {
+					swf.WriteLine ("priority = {0}", attr.Priority);
+					swf.Flush ();
+					swf.Close ();
+				}
+			}
+			ConfigureManager manager = new ConfigureManager (config_file);
+			return Convert.ToInt32 (manager ["priority"]);
 		}
 
 		/// <summary>
@@ -158,7 +204,7 @@ namespace PluginLoader.Loader
 		/// </summary>
 		/// <returns>The has attribute.</returns>
 		/// <param name="type">Type.</param>
-		private static PluginInfoAttribute CheckHasAttribute (Type type)
+		internal static PluginInfoAttribute CheckHasAttribute (Type type)
 		{
 			object[] all_Attribute = type.GetCustomAttributes (false);
 			foreach (object i in all_Attribute) {
