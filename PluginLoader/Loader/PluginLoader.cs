@@ -169,11 +169,13 @@ namespace PluginLoader.Loader
 			string config_file = dir.FullName + "/" + attr.Name + ".conf";
 			FileInfo file = new FileInfo (config_file);
 			if (!file.Exists) {
-				file.Create ();
-				using (StreamWriter swf = file.AppendText ()) {
-					swf.WriteLine ("priority = {0}", attr.Priority);
-					swf.Flush ();
-					swf.Close ();
+				using (FileStream fs = file.Create ()) {
+					using (StreamWriter sw = new StreamWriter(fs,Encoding.UTF8)) {
+						sw.AutoFlush = true;
+						sw.WriteLine (string.Format ("priority={0}",
+						                           attr.Priority));
+						sw.Close ();
+					}
 				}
 			}
 			ConfigureManager manager = new ConfigureManager (config_file);

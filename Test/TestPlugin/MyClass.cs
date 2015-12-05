@@ -4,7 +4,7 @@ using Test;
 using PluginLoader.PluginAttribute;
 namespace TestPlugin
 {
-	[PluginInfo("1625F2E078F4216D1BFCA925E68DE795CC0C5FDD62B312D0C22135D211AF86BA",1)]
+	[PluginInfo("1625F2E078F4216D1BFCA925E68DE795CC0C5FDD62B312D0C22135D211AF86BA",1,Name = "Test")]
 	public class MyPlugin :TestPluginFather
 	{
 		#region implemented abstract members of TestPluginFather
