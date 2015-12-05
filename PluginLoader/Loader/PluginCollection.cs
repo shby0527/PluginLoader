@@ -111,8 +111,9 @@ namespace PluginLoader.Loader
 				if (tmp != null) {
 					if (tmp.Loading ())
 						yield return tmp;
+				} else {
+					yield return null;
 				}
-				yield return tmp;
 			}
 		}
 		#endregion
