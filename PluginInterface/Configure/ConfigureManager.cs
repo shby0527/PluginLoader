@@ -84,7 +84,7 @@ namespace PluginLoader.Configure
 		}
 
 		/// <summary>
-		/// Load the config file1625F2E078F4216D1BFCA925E68DE795CC0C5FDD62B312D0C22135D211AF86BA to init the plugin
+		/// Load the config file to init the plugin
 		/// </summary>
 		/// <returns><c>true</c>, if config was loaded, <c>false</c> otherwise.</returns>
 		/// <param name="file">File.</param>
