@@ -12,10 +12,10 @@ include $(top_srcdir)/rules.make
 
 #Warning: This is an automatically generated file, do not edit!
 ifeq ($(CONFIG),DEBUG)
- SUBDIRS =  PluginLoader GUIDGetter Test/Test Test/TestPlugin
+ SUBDIRS =  GUIDGetter PluginInterface PluginLoader Test/Test Test/TestPlugin
 endif
 ifeq ($(CONFIG),RELEASE)
- SUBDIRS =  PluginLoader GUIDGetter Test/Test Test/TestPlugin
+ SUBDIRS =  GUIDGetter PluginInterface PluginLoader Test/Test Test/TestPlugin
 endif
 
 

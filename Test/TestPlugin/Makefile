@@ -16,7 +16,7 @@ ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
 PROJECT_REFERENCES =  \
 	../Test/bin/Debug/Test.exe \
-	../../PluginLoader/bin/Debug/PluginLoader.dll
+	../../PluginInterface/bin/Debug/PluginInterface.dll
 BUILD_DIR = bin/Debug
 
 TESTPLUGIN_DLL_MDB_SOURCE=bin/Debug/TestPlugin.dll.mdb
@@ -27,6 +27,9 @@ TEST_EXE_MDB=$(BUILD_DIR)/Test.exe.mdb
 PLUGINLOADER_DLL_SOURCE=../../PluginLoader/bin/Debug/PluginLoader.dll
 PLUGINLOADER_DLL_MDB_SOURCE=../../PluginLoader/bin/Debug/PluginLoader.dll.mdb
 PLUGINLOADER_DLL_MDB=$(BUILD_DIR)/PluginLoader.dll.mdb
+PLUGININTERFACE_DLL_SOURCE=../../PluginInterface/bin/Debug/PluginInterface.dll
+PLUGININTERFACE_DLL_MDB_SOURCE=../../PluginInterface/bin/Debug/PluginInterface.dll.mdb
+PLUGININTERFACE_DLL_MDB=$(BUILD_DIR)/PluginInterface.dll.mdb
 
 endif
 
@@ -38,7 +41,7 @@ ASSEMBLY_MDB =
 COMPILE_TARGET = library
 PROJECT_REFERENCES =  \
 	../Test/bin/Release/Test.exe \
-	../../PluginLoader/bin/Release/PluginLoader.dll
+	../../PluginInterface/bin/Release/PluginInterface.dll
 BUILD_DIR = bin/Release
 
 TESTPLUGIN_DLL_MDB=
@@ -46,6 +49,8 @@ TEST_EXE_SOURCE=../Test/bin/Release/Test.exe
 TEST_EXE_MDB=
 PLUGINLOADER_DLL_SOURCE=../../PluginLoader/bin/Release/PluginLoader.dll
 PLUGINLOADER_DLL_MDB=
+PLUGININTERFACE_DLL_SOURCE=../../PluginInterface/bin/Release/PluginInterface.dll
+PLUGININTERFACE_DLL_MDB=
 
 endif
 
@@ -57,7 +62,9 @@ PROGRAMFILES = \
 	$(TEST_EXE) \
 	$(TEST_EXE_MDB) \
 	$(PLUGINLOADER_DLL) \
-	$(PLUGINLOADER_DLL_MDB)  
+	$(PLUGINLOADER_DLL_MDB) \
+	$(PLUGININTERFACE_DLL) \
+	$(PLUGININTERFACE_DLL_MDB)  
 
 LINUX_PKGCONFIG = \
 	$(TESTPLUGIN_PC)  
@@ -67,6 +74,7 @@ RESGEN=resgen2
 
 TEST_EXE = $(BUILD_DIR)/Test.exe
 PLUGINLOADER_DLL = $(BUILD_DIR)/PluginLoader.dll
+PLUGININTERFACE_DLL = $(BUILD_DIR)/PluginInterface.dll
 TESTPLUGIN_PC = $(BUILD_DIR)/testplugin.pc
 
 FILES = \
@@ -99,6 +107,8 @@ $(eval $(call emit-deploy-target,TEST_EXE))
 $(eval $(call emit-deploy-target,TEST_EXE_MDB))
 $(eval $(call emit-deploy-target,PLUGINLOADER_DLL))
 $(eval $(call emit-deploy-target,PLUGINLOADER_DLL_MDB))
+$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL))
+$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL_MDB))
 $(eval $(call emit-deploy-wrapper,TESTPLUGIN_PC,testplugin.pc))
 
 
@@ -127,6 +137,8 @@ install-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	$(call cp,$(TEST_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(PLUGINLOADER_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(libdir)/pkgconfig'
 	$(call cp,$(TESTPLUGIN_PC),$(DESTDIR)$(libdir)/pkgconfig)
 	make post-install-local-hook prefix=$(prefix)
@@ -141,6 +153,8 @@ uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	$(call rm,$(TEST_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(PLUGINLOADER_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(TESTPLUGIN_PC),$(DESTDIR)$(libdir)/pkgconfig)
 	make post-uninstall-local-hook prefix=$(prefix)
 

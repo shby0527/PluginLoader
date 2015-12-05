@@ -15,7 +15,8 @@ ASSEMBLY = bin/Debug/Test.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
-	../../PluginLoader/bin/Debug/PluginLoader.dll
+	../../PluginLoader/bin/Debug/PluginLoader.dll \
+	../../PluginInterface/bin/Debug/PluginInterface.dll
 BUILD_DIR = bin/Debug
 
 TEST_EXE_MDB_SOURCE=bin/Debug/Test.exe.mdb
@@ -23,6 +24,9 @@ TEST_EXE_MDB=$(BUILD_DIR)/Test.exe.mdb
 PLUGINLOADER_DLL_SOURCE=../../PluginLoader/bin/Debug/PluginLoader.dll
 PLUGINLOADER_DLL_MDB_SOURCE=../../PluginLoader/bin/Debug/PluginLoader.dll.mdb
 PLUGINLOADER_DLL_MDB=$(BUILD_DIR)/PluginLoader.dll.mdb
+PLUGININTERFACE_DLL_SOURCE=../../PluginInterface/bin/Debug/PluginInterface.dll
+PLUGININTERFACE_DLL_MDB_SOURCE=../../PluginInterface/bin/Debug/PluginInterface.dll.mdb
+PLUGININTERFACE_DLL_MDB=$(BUILD_DIR)/PluginInterface.dll.mdb
 
 endif
 
@@ -33,12 +37,15 @@ ASSEMBLY = bin/Release/Test.exe
 ASSEMBLY_MDB = 
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
-	../../PluginLoader/bin/Release/PluginLoader.dll
+	../../PluginLoader/bin/Release/PluginLoader.dll \
+	../../PluginInterface/bin/Release/PluginInterface.dll
 BUILD_DIR = bin/Release
 
 TEST_EXE_MDB=
 PLUGINLOADER_DLL_SOURCE=../../PluginLoader/bin/Release/PluginLoader.dll
 PLUGINLOADER_DLL_MDB=
+PLUGININTERFACE_DLL_SOURCE=../../PluginInterface/bin/Release/PluginInterface.dll
+PLUGININTERFACE_DLL_MDB=
 
 endif
 
@@ -48,7 +55,9 @@ SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 PROGRAMFILES = \
 	$(TEST_EXE_MDB) \
 	$(PLUGINLOADER_DLL) \
-	$(PLUGINLOADER_DLL_MDB)  
+	$(PLUGINLOADER_DLL_MDB) \
+	$(PLUGININTERFACE_DLL) \
+	$(PLUGININTERFACE_DLL_MDB)  
 
 BINARIES = \
 	$(TEST)  
@@ -57,6 +66,7 @@ BINARIES = \
 RESGEN=resgen2
 
 PLUGINLOADER_DLL = $(BUILD_DIR)/PluginLoader.dll
+PLUGININTERFACE_DLL = $(BUILD_DIR)/PluginInterface.dll
 TEST = $(BUILD_DIR)/test
 
 FILES = \
@@ -87,6 +97,8 @@ include $(top_srcdir)/Makefile.include
 
 $(eval $(call emit-deploy-target,PLUGINLOADER_DLL))
 $(eval $(call emit-deploy-target,PLUGINLOADER_DLL_MDB))
+$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL))
+$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL_MDB))
 $(eval $(call emit-deploy-wrapper,TEST,test,x))
 
 
@@ -113,6 +125,8 @@ install-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	$(call cp,$(TEST_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(PLUGINLOADER_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call cp,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(bindir)'
 	$(call cp,$(TEST),$(DESTDIR)$(bindir))
 	make post-install-local-hook prefix=$(prefix)
@@ -125,6 +139,8 @@ uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	$(call rm,$(TEST_EXE_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(PLUGINLOADER_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
+	$(call rm,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(TEST),$(DESTDIR)$(bindir))
 	make post-uninstall-local-hook prefix=$(prefix)
 

@@ -11,17 +11,13 @@ include $(top_srcdir)/config.make
 ifeq ($(CONFIG),DEBUG)
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;"
-ASSEMBLY = bin/Debug/PluginLoader.dll
+ASSEMBLY = bin/Debug/PluginInterface.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
-PROJECT_REFERENCES =  \
-	../PluginInterface/bin/Debug/PluginInterface.dll
+PROJECT_REFERENCES = 
 BUILD_DIR = bin/Debug
 
-PLUGINLOADER_DLL_MDB_SOURCE=bin/Debug/PluginLoader.dll.mdb
-PLUGINLOADER_DLL_MDB=$(BUILD_DIR)/PluginLoader.dll.mdb
-PLUGININTERFACE_DLL_SOURCE=../PluginInterface/bin/Debug/PluginInterface.dll
-PLUGININTERFACE_DLL_MDB_SOURCE=../PluginInterface/bin/Debug/PluginInterface.dll.mdb
+PLUGININTERFACE_DLL_MDB_SOURCE=bin/Debug/PluginInterface.dll.mdb
 PLUGININTERFACE_DLL_MDB=$(BUILD_DIR)/PluginInterface.dll.mdb
 
 endif
@@ -29,15 +25,12 @@ endif
 ifeq ($(CONFIG),RELEASE)
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
-ASSEMBLY = bin/Release/PluginLoader.dll
+ASSEMBLY = bin/Release/PluginInterface.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
-PROJECT_REFERENCES =  \
-	../PluginInterface/bin/Release/PluginInterface.dll
+PROJECT_REFERENCES = 
 BUILD_DIR = bin/Release
 
-PLUGINLOADER_DLL_MDB=
-PLUGININTERFACE_DLL_SOURCE=../PluginInterface/bin/Release/PluginInterface.dll
 PLUGININTERFACE_DLL_MDB=
 
 endif
@@ -46,39 +39,35 @@ AL=al
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
-	$(PLUGINLOADER_DLL_MDB) \
-	$(PLUGININTERFACE_DLL) \
 	$(PLUGININTERFACE_DLL_MDB)  
 
 LINUX_PKGCONFIG = \
-	$(PLUGINLOADER_PC)  
+	$(PLUGININTERFACE_PC)  
 
 
 RESGEN=resgen2
 
-PLUGININTERFACE_DLL = $(BUILD_DIR)/PluginInterface.dll
-PLUGINLOADER_PC = $(BUILD_DIR)/pluginloader.pc
+PLUGININTERFACE_PC = $(BUILD_DIR)/plugininterface.pc
 
 FILES = \
 	Properties/AssemblyInfo.cs \
-	Loader/PluginLoader.cs \
-	Loader/PluginInfo.cs \
-	Loader/PluginCollection.cs \
-	Loader/IPluginArray.cs 
+	Plugins/IPlugin.cs \
+	PluginAttribute/DingerInfoAttribute.cs \
+	PluginAttribute/PluginException/AttributeNotFoundException.cs \
+	PluginAttribute/PluginExtraInfoAttribute.cs \
+	PluginAttribute/PluginInfoAttribute.cs \
+	Plugins/ExtraInfo.cs \
+	Configure/ConfigureManager.cs 
 
 DATA_FILES = 
 
 RESOURCES = 
 
 EXTRAS = \
-	Loader \
-	pluginloader.pc.in 
+	plugininterface.pc.in 
 
 REFERENCES =  \
-	System \
-	System.Core \
-	System.Security \
-	System.Data
+	System
 
 DLL_REFERENCES = 
 
@@ -92,9 +81,7 @@ include $(top_srcdir)/Makefile.include
 
 
 
-$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL))
-$(eval $(call emit-deploy-target,PLUGININTERFACE_DLL_MDB))
-$(eval $(call emit-deploy-wrapper,PLUGINLOADER_PC,pluginloader.pc))
+$(eval $(call emit-deploy-wrapper,PLUGININTERFACE_PC,plugininterface.pc))
 
 
 $(eval $(call emit_resgen_targets))
@@ -117,11 +104,9 @@ install-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	mkdir -p '$(DESTDIR)$(libdir)/$(PACKAGE)'
 	$(call cp,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call cp,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call cp,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call cp,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
 	mkdir -p '$(DESTDIR)$(libdir)/pkgconfig'
-	$(call cp,$(PLUGINLOADER_PC),$(DESTDIR)$(libdir)/pkgconfig)
+	$(call cp,$(PLUGININTERFACE_PC),$(DESTDIR)$(libdir)/pkgconfig)
 	make post-install-local-hook prefix=$(prefix)
 
 uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
@@ -129,10 +114,8 @@ uninstall-local: $(ASSEMBLY) $(ASSEMBLY_MDB)
 	make uninstall-satellite-assemblies prefix=$(prefix)
 	$(call rm,$(ASSEMBLY),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(ASSEMBLY_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call rm,$(PLUGINLOADER_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call rm,$(PLUGININTERFACE_DLL),$(DESTDIR)$(libdir)/$(PACKAGE))
 	$(call rm,$(PLUGININTERFACE_DLL_MDB),$(DESTDIR)$(libdir)/$(PACKAGE))
-	$(call rm,$(PLUGINLOADER_PC),$(DESTDIR)$(libdir)/pkgconfig)
+	$(call rm,$(PLUGININTERFACE_PC),$(DESTDIR)$(libdir)/pkgconfig)
 	make post-uninstall-local-hook prefix=$(prefix)
 
 install: install-local
