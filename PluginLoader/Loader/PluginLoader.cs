@@ -47,11 +47,11 @@ namespace PluginLoader.Loader
 		{
 			if (m_PluginArray != null)
 				return m_PluginArray;
-			m_PluginArray = new PluginCollection<T> ();
 			DirectoryInfo dir = new DirectoryInfo (argPath);
 			if (!dir.Exists)
 				throw new DirectoryNotFoundException (dir.FullName + " was not found");
 			//the we should get the full path
+			m_PluginArray = new PluginCollection<T> ();
 			string plugin_full_path = dir.FullName;
 			StartLoad (plugin_full_path);
 			m_PluginArray.Sort ();
@@ -204,7 +204,7 @@ namespace PluginLoader.Loader
 		/// </summary>
 		/// <returns>The has attribute.</returns>
 		/// <param name="type">Type.</param>
-		internal static PluginInfoAttribute CheckHasAttribute (Type type)
+		private static PluginInfoAttribute CheckHasAttribute (Type type)
 		{
 			object[] all_Attribute = type.GetCustomAttributes (false);
 			foreach (object i in all_Attribute) {

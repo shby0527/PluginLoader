@@ -39,6 +39,7 @@
     <Compile Include="PluginAttribute\PluginExtraInfoAttribute.cs" />
     <Compile Include="PluginAttribute\PluginInfoAttribute.cs" />
     <Compile Include="Plugins\ExtraInfo.cs" />
+    <Compile Include="Configure\ConfigureManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

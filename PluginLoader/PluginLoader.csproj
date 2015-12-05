@@ -40,12 +40,10 @@
     <Compile Include="Loader\PluginInfo.cs" />
     <Compile Include="Loader\PluginCollection.cs" />
     <Compile Include="Loader\IPluginArray.cs" />
-    <Compile Include="Configure\ConfigureManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Loader\" />
-    <Folder Include="Configure\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PluginInterface\PluginInterface.csproj">

@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using PluginLoader.Plugins;
@@ -39,7 +39,7 @@ namespace PluginLoader.Configure
 		{
 			string path = type.Assembly.Location;
 			DirectoryInfo dir = Directory.GetParent (path);
-			PluginInfoAttribute attr = PluginLoader<IPlugin>.CheckHasAttribute (type);
+			PluginInfoAttribute attr = CheckHasAttribute (type);
 			if (attr == null)
 				throw new AttributeNotFoundException ();
 			string config_file = dir.FullName + "/" + attr.GUID + "/"
@@ -51,6 +51,28 @@ namespace PluginLoader.Configure
 			this.LoadConfig (file);
 		}
 
+
+		/// <summary>
+		/// Checks the has attribute.
+		/// </summary>
+		/// <returns>The has attribute.</returns>
+		/// <param name="type">Type.</param>
+		private static PluginInfoAttribute CheckHasAttribute (Type type)
+		{
+			object[] all_Attribute = type.GetCustomAttributes (false);
+			foreach (object i in all_Attribute) {
+				PluginInfoAttribute attr = i as PluginInfoAttribute;
+				if (attr != null) {
+					//now we check the GUID 
+					Regex reg = new Regex ("^[a-fA-F0-9]{64}$");
+					if (reg.IsMatch (attr.GUID))
+						return attr;
+					else
+						return null;
+				}
+			}
+			return null;
+		}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PluginLoader.Configure.ConfigureManager"/> class.
 		/// </summary>
