@@ -17,6 +17,7 @@ namespace PluginLoader.Configure
 	public sealed class ConfigureManager
 	{
 		private Dictionary<string,string> m_map = null;
+		private string m_config_file = null;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PluginLoader.Configure.ConfigureManager"/> class.
@@ -28,6 +29,7 @@ namespace PluginLoader.Configure
 			if (!file.Exists)
 				throw new FileNotFoundException ("the configure file is not found");
 			this.m_map = new Dictionary<string, string> ();
+			this.m_config_file = file_path;
 			this.LoadConfig (file);
 		}
 
@@ -38,6 +40,8 @@ namespace PluginLoader.Configure
 		public ConfigureManager (Type type)
 		{
 			string path = type.Assembly.Location;
+			if (path == "")
+				path = ".";
 			DirectoryInfo dir = Directory.GetParent (path);
 			PluginInfoAttribute attr = CheckHasAttribute (type);
 			if (attr == null)
@@ -48,9 +52,9 @@ namespace PluginLoader.Configure
 			if (!file.Exists)
 				throw new FileNotFoundException ("configure file is not exists");
 			this.m_map = new Dictionary<string, string> ();
+			this.m_config_file = config_file;
 			this.LoadConfig (file);
 		}
-
 
 		/// <summary>
 		/// Checks the has attribute.
@@ -73,6 +77,7 @@ namespace PluginLoader.Configure
 			}
 			return null;
 		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PluginLoader.Configure.ConfigureManager"/> class.
 		/// </summary>
@@ -93,14 +98,37 @@ namespace PluginLoader.Configure
 			using (StreamReader sr = file.OpenText ()) {
 				while (!sr.EndOfStream) {
 					string line = sr.ReadLine ().Trim ();
-					string[] values = line.Split ('=');
-					string Key = values [0].Trim ();
-					string Value = values [1].Trim ();
+					int index = line.IndexOf ('=');
+					string Key = line.Substring (0, index).Trim ();
+					string Value = line.Substring (index + 1, line.Length - index - 1).Trim ();
 					this.m_map.Add (Key, Value);
 				}
 				sr.Close ();
 			}
 			return true;
+		}
+
+		/// <summary>
+		/// Saves all config.
+		/// </summary>
+		/// <returns><c>true</c>, if all config was saved, <c>false</c> otherwise.</returns>
+		public bool SaveAllConfig ()
+		{
+			if (this.m_map == null)
+				return false;
+			if (this.m_config_file == null)
+				return false;
+			FileInfo file = new FileInfo (this.m_config_file);
+			if (!file.Exists)
+				return false;
+			using (StreamWriter sw = file.CreateText()) {
+				foreach (string key in this.m_map.Keys) {
+					sw.WriteLine (string.Format ("{0}={1}", key, this.m_map [key]));
+				}
+				sw.Flush ();
+				sw.Close ();
+				return true;
+			}
 		}
 
 		/// <summary>
