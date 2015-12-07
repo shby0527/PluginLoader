@@ -140,10 +140,21 @@ namespace PluginLoader.Configure
 		/// </summary>
 		/// <returns><c>true</c> if this instance is config key exists the specified Key; otherwise, <c>false</c>.</returns>
 		/// <param name="Key">Key.</param>
-		public bool IsConfigKeyExists(string Key)
+		public bool IsConfigKeyExists (string Key)
 		{
 			return this.m_map.ContainsKey (Key);
 		}
+
+		/// <summary>
+		/// Gets the config directory.
+		/// </summary>
+		/// <value>The config directory.</value>
+		public string ConfigDirectory {
+			get {
+				return Directory.GetParent (this.m_config_file).FullName;
+			}
+		}
+
 		/// <summary>
 		/// Gets or sets the <see cref="PluginLoader.Configure.ConfigureManager"/> with the specified Key.
 		/// </summary>
