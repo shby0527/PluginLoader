@@ -136,6 +136,15 @@ namespace PluginLoader.Configure
 		}
 
 		/// <summary>
+		/// Determines whether this instance is config key exists the specified Key.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is config key exists the specified Key; otherwise, <c>false</c>.</returns>
+		/// <param name="Key">Key.</param>
+		public bool IsConfigKeyExists(string Key)
+		{
+			return this.m_map.ContainsKey (Key);
+		}
+		/// <summary>
 		/// Gets or sets the <see cref="PluginLoader.Configure.ConfigureManager"/> with the specified Key.
 		/// </summary>
 		/// <param name="Key">Key.</param>
