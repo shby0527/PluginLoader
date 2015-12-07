@@ -98,6 +98,10 @@ namespace PluginLoader.Configure
 			using (StreamReader sr = file.OpenText ()) {
 				while (!sr.EndOfStream) {
 					string line = sr.ReadLine ().Trim ();
+					//if the line of the first char is '#'
+					//we should ignore it
+					if (line [0] == '#')
+						continue;
 					int index = line.IndexOf ('=');
 					string Key = line.Substring (0, index).Trim ();
 					string Value = line.Substring (index + 1, line.Length - index - 1).Trim ();
