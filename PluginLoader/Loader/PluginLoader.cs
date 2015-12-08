@@ -68,6 +68,7 @@ namespace PluginLoader.Loader
 			string[] AllFile = Directory.GetFiles (FullPath, "*.dll", SearchOption.TopDirectoryOnly);
 			sw = File.AppendText (FullPath + "/logfile.log");
 			sw.AutoFlush = true;
+			m_PluginArray.LogfileStream = sw;
 			foreach (string file_full_path in AllFile) {
 				//Now we try to load the file 
 				try {

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PluginLoader.Loader
 {
 	[DebuggerDisplay("PluginCount={PluginCount}")]
 	internal sealed class PluginCollection<T> :IPluginArray<T>,ICollection<PluginInfo>
-		where T:class,IPlugin
+		where T:class, IPlugin
 	{
 		//list to save the plugin information
 		private List<PluginInfo> m_lstPlugin;
@@ -18,6 +19,12 @@ namespace PluginLoader.Loader
 		{
 			this.m_lstPlugin = new List<PluginInfo> ();
 		}
+
+		/// <summary>
+		/// Gets or sets the logfile stream.
+		/// </summary>
+		/// <value>The logfile stream.</value>
+		public StreamWriter LogfileStream{ get; set; }
 		#region IPluginArray implementation
 		/// <summary>
 		/// Gets the name of the plugins.
@@ -31,6 +38,7 @@ namespace PluginLoader.Loader
 			}
 			return lst.ToArray ();
 		}
+
 		/// <summary>
 		/// Gets the <see cref="PluginLoader.Loader.PluginCollection`1"/> with the specified Index.
 		/// </summary>
@@ -42,10 +50,17 @@ namespace PluginLoader.Loader
 				if (tmp != null) {
 					if (tmp.Loading ())
 						return tmp;
+					else {
+						if (this.LogfileStream != null)
+							this.LogfileStream.WriteLine (string.Format ("{0}:{1} is loading fail"
+							                                           , DateTime.UtcNow.ToShortTimeString ()
+							                                           , tmp.GetName ()));
+					}
 				}
 				return null;
 			}
 		}
+
 		/// <summary>
 		/// Gets the <see cref="PluginLoader.Loader.PluginCollection`1"/> with the specified GUID.
 		/// if the GUID not found in the collection ,we return null
@@ -54,20 +69,26 @@ namespace PluginLoader.Loader
 		public T this [string GUID] {
 			get {
 				var obj = from t in this.m_lstPlugin where t.PluginGUID == GUID select t;
-				if(obj.Count() == 0)
+				if (obj.Count () == 0)
 					return null;
-				else
-				{
-					PluginInfo plg = obj.First();
-					T tmp = plg.PluginAssembly.CreateInstance(plg.PluginFullName) as T;
+				else {
+					PluginInfo plg = obj.First ();
+					T tmp = plg.PluginAssembly.CreateInstance (plg.PluginFullName) as T;
 					if (tmp != null) {
 						if (tmp.Loading ())
 							return tmp;
+						else {
+							if (this.LogfileStream != null)
+								this.LogfileStream.WriteLine (string.Format ("{0}:{1} is loading fail"
+								                                             , DateTime.UtcNow.ToShortTimeString ()
+								                                             , tmp.GetName ()));
+						}
 					}
 					return null;
 				}
 			}
 		}
+
 		/// <summary>
 		/// Gets the plugin count.
 		/// </summary>
@@ -88,10 +109,16 @@ namespace PluginLoader.Loader
 		IEnumerator<T> IEnumerable<T>.GetEnumerator ()
 		{
 			foreach (var i in m_lstPlugin) {
-				T tmp = i.PluginAssembly.CreateInstance (i.PluginFullName) as T ;
+				T tmp = i.PluginAssembly.CreateInstance (i.PluginFullName) as T;
 				if (tmp != null) {
 					if (tmp.Loading ())
 						yield return tmp;
+					else {
+						if (this.LogfileStream != null)
+							this.LogfileStream.WriteLine (string.Format ("{0}:{1} is loading fail"
+							                                             , DateTime.UtcNow.ToShortTimeString ()
+							                                             , tmp.GetName ()));
+					}
 				} else {
 					yield return null;
 				}
@@ -111,6 +138,12 @@ namespace PluginLoader.Loader
 				if (tmp != null) {
 					if (tmp.Loading ())
 						yield return tmp;
+					else {
+						if (this.LogfileStream != null)
+							this.LogfileStream.WriteLine (string.Format ("{0}:{1} is loading fail"
+							                                             , DateTime.UtcNow.ToShortTimeString ()
+							                                             , tmp.GetName ()));
+					}
 				} else {
 					yield return null;
 				}
@@ -130,6 +163,7 @@ namespace PluginLoader.Loader
 		{
 			this.m_lstPlugin.Add (item);
 		}
+
 		/// <summary>
 		/// Clear this instance.
 		/// </summary>
@@ -137,6 +171,7 @@ namespace PluginLoader.Loader
 		{
 			this.m_lstPlugin.Clear ();
 		}
+
 		/// <Docs>The object to locate in the current collection.</Docs>
 		/// <para>Determines whether the current collection contains a specific value.</para>
 		/// <summary>
@@ -147,6 +182,7 @@ namespace PluginLoader.Loader
 		{
 			return this.m_lstPlugin.Contains (item);
 		}
+
 		/// <summary>
 		/// Copies to.
 		/// </summary>
@@ -156,6 +192,7 @@ namespace PluginLoader.Loader
 		{
 			this.m_lstPlugin.CopyTo (array, arrayIndex);
 		}
+
 		/// <Docs>The item to remove from the current collection.</Docs>
 		/// <para>Removes the first occurrence of an item from the current collection.</para>
 		/// <summary>
@@ -166,6 +203,7 @@ namespace PluginLoader.Loader
 		{
 			return this.m_lstPlugin.Remove (item);
 		}
+
 		/// <summary>
 		/// Gets the count.
 		/// </summary>
@@ -175,6 +213,7 @@ namespace PluginLoader.Loader
 				return this.m_lstPlugin.Count;
 			}
 		}
+
 		/// <summary>
 		/// Gets a value indicating whether this instance is read only.
 		/// </summary>
@@ -196,11 +235,10 @@ namespace PluginLoader.Loader
 			return this.m_lstPlugin.GetEnumerator ();
 		}
 		#endregion
-
 		/// <summary>
 		/// Sort with Plugin Priority.
 		/// </summary>
-		public void Sort()
+		public void Sort ()
 		{
 			this.m_lstPlugin.Sort ();
 		}
