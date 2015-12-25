@@ -98,6 +98,9 @@ namespace PluginLoader.Configure
 			using (StreamReader sr = file.OpenText ()) {
 				while (!sr.EndOfStream) {
 					string line = sr.ReadLine ().Trim ();
+					//if the line is empty
+					if (line == "")
+						continue;
 					//if the line of the first char is '#'
 					//we should ignore it
 					if (line [0] == '#')
