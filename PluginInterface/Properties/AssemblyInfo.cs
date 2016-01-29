@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle ("PluginInterface")]
 [assembly: AssemblyDescription ("this is a interface from this Loader")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
+[assembly: AssemblyCompany ("null")]
 [assembly: AssemblyProduct ("")]
 [assembly: AssemblyCopyright ("umi")]
 [assembly: AssemblyTrademark ("")]
