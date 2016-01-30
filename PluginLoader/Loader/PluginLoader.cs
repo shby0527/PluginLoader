@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using PluginLoader.PluginAttribute;
 using PluginLoader.Plugins;
 using PluginLoader.Configure;
+
 /// <summary>
 /// Plugin loader.
 /// </summary>
@@ -36,6 +37,18 @@ namespace PluginLoader.Loader
 				return Load (".");
 			DirectoryInfo info = Directory.GetParent (path);
 			return Load (info.FullName);
+		}
+
+		/// <summary>
+		/// Load this instance.
+		/// if it not initization
+		/// throw a exception
+		/// </summary>
+		public static IPluginArray<T> Load ()
+		{
+			if (m_PluginArray != null)
+				return m_PluginArray;
+			throw new Exception ("Plugins Not Initization");
 		}
 
 		/// <summary>
@@ -171,10 +184,10 @@ namespace PluginLoader.Loader
 			FileInfo file = new FileInfo (config_file);
 			if (!file.Exists) {
 				using (FileStream fs = file.Create ()) {
-					using (StreamWriter sw = new StreamWriter(fs,Encoding.UTF8)) {
+					using (StreamWriter sw = new StreamWriter (fs, Encoding.UTF8)) {
 						sw.AutoFlush = true;
 						sw.WriteLine (string.Format ("priority={0}",
-						                           attr.Priority));
+							attr.Priority));
 						sw.Close ();
 					}
 				}
