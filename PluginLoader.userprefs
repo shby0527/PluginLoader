@@ -1,7 +1,8 @@
-﻿<Properties StartupItem="GUIDGetter/GUIDGetter.csproj">
+﻿<Properties StartupItem="GUIDGetter\GUIDGetter.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader/Loader/PluginLoader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PluginLoader\Loader\PluginInfoCollection.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="PluginLoader/Loader/PluginLoader.cs" Line="45" Column="24" />
       <File FileName="PluginLoader/Loader/PluginCollection.cs" Line="1" Column="1" />
       <File FileName="PluginLoader/Loader/PluginInfo.cs" Line="1" Column="1" />
@@ -9,6 +10,16 @@
       <File FileName="PluginInterface/Plugins/SamplePluginBase.cs" Line="1" Column="1" />
       <File FileName="PluginInterface/Plugins/IPlugin.cs" Line="1" Column="1" />
       <File FileName="PluginInterface/Properties/AssemblyInfo.cs" Line="1" Column="1" />
+=======
+      <File FileName="PluginLoader\Loader\PluginLoader.cs" Line="45" Column="24" />
+      <File FileName="PluginLoader\Loader\PluginCollection.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader\Loader\PluginInfo.cs" Line="1" Column="1" />
+      <File FileName="PluginInterface\Plugins\ExtraInfo.cs" Line="1" Column="1" />
+      <File FileName="PluginInterface\Plugins\SamplePluginBase.cs" Line="1" Column="1" />
+      <File FileName="PluginInterface\Plugins\IPlugin.cs" Line="1" Column="1" />
+      <File FileName="PluginInterface\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="PluginLoader\Loader\PluginInfoCollection.cs" Line="32" Column="22" />
+>>>>>>> dev
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
