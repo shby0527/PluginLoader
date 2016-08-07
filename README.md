@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/shby0527/PluginLoader.svg?branch=master)](https://travis-ci.org/shby0527/PluginLoader)
 # PluginLoader
 Mono Plugin Loader    <br> 
 通用的.Net 插件加载类 <br>
